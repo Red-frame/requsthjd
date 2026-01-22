@@ -1,15 +1,21 @@
+const path = require('path');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
 
-  // Fix wagmi / viem fallback
   webpack: (config) => {
+    // fix wagmi fallback
     config.resolve.fallback = {
       fs: false,
       net: false,
       tls: false
     };
+
+    // add alias @
+    config.resolve.alias['@'] = path.resolve(__dirname);
+
     return config;
   },
 
