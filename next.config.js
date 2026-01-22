@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
 
-  // Fix wagmi / viem (fs/net/tls fallback)
+  // Fix wagmi / viem fallback
   webpack: (config) => {
     config.resolve.fallback = {
       fs: false,
