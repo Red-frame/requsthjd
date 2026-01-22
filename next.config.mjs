@@ -1,12 +1,9 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
-
-  // App Router default (tidak perlu experimental lagi)
   poweredByHeader: false,
 
-  // Supaya wagmi / viem / wallet tidak error di build
+  // Fix wagmi / viem (fs/net/tls fallback)
   webpack: (config) => {
     config.resolve.fallback = {
       fs: false,
@@ -16,7 +13,6 @@ const nextConfig: NextConfig = {
     return config;
   },
 
-  // Mobile-first + image optimization
   images: {
     remotePatterns: [
       {
@@ -26,14 +22,12 @@ const nextConfig: NextConfig = {
     ]
   },
 
-  // Untuk DEX & API (kadang fetch on-chain agak lama)
   experimental: {
     serverActions: {
       bodySizeLimit: "2mb"
     }
   },
 
-  // Lebih aman untuk API / blockchain call
   async headers() {
     return [
       {
@@ -48,4 +42,4 @@ const nextConfig: NextConfig = {
   }
 };
 
-export default nextConfig;
+module.exports = nextConfig;
